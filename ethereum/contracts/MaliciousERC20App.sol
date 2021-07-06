@@ -65,7 +65,7 @@ contract MaliciousERC20App {
             "Invalid channel ID"
         );
 
-        balances[_token] = balances[_token].add(_amount);
+        balances[_token] = balances[_token] - _amount;
 
         emit Locked(_token, msg.sender, _recipient, _amount);
 

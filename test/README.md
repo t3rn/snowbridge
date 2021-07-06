@@ -83,21 +83,6 @@ You should now be good to go!
 yarn test
 ```
 
-### Testing against a malicious contract
-We also have a test environment that tests against a malicious contract that attempts to consume infinite gas. To setup this environment, run the start-services script with the malicious flag:
-
-```bash
-scripts/start-services.sh malicious
-```
-
-This will deploy and run everything as usual, but replace the erc20 app with a malicious one. Once everything is ready to go, run the tests again
-
-```bash
-yarn test
-```
-
-You should see the erc20 unlock test failing, due to the malicious app, but the eth and dot app tests should pass successfully without being impacted.
-
 ### Manual Tests
 
 Make sure to setup the E2E stack as described above.

@@ -84,12 +84,6 @@ start_polkadot_launch()
         genesis.runtime.parachainInfo.parachainId 200 \
         para_id 200
 
-    if [ $# -eq 1 ] && [ $1 = "malicious" ]; then
-        jq '.genesis.runtime.erc20App.address = "0x6495675F661E208CC34d8e163CF1f5b2d6d05129"' \
-          $configdir/spec.json > spec.malicious.json && \
-          mv spec.malicious.json $configdir/spec.json
-    fi
-
     echo "Writing Polkadot configuration"
     polkadotbinary=/tmp/polkadot/target/release/polkadot
     if [[ -f ../test/.env ]]; then
