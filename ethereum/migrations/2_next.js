@@ -59,6 +59,7 @@ module.exports = function (deployer, network, accounts) {
     await deployer.deploy(ScaleCodec);
     await deployer.deploy(MerkleProof);
     await deployer.deploy(Bitfield);
+
     deployer.link(Bitfield, [contracts.beefylightclient.contract]);
     deployer.link(ScaleCodec, [ETHApp, ERC20App, DOTApp, contracts.beefylightclient.contract, ParachainLightClient, BasicInboundChannel, IncentivizedInboundChannel]);
     deployer.link(MerkleProof, [ValidatorRegistry, ParachainLightClient, BasicInboundChannel, IncentivizedInboundChannel]);
@@ -180,12 +181,14 @@ module.exports = function (deployer, network, accounts) {
       ethApp.address,
     );
 
-    await token.mint("10000", {
-      from: accounts[0],
-    });
-    await token.mint("10000", {
-      from: accounts[1],
-    });
+    if (network === 'e2e_test') {
+      await token.mint("10000", {
+        from: accounts[0],
+      });
+      await token.mint("10000", {
+        from: accounts[1],
+      });
+    }
 
   })
 };
