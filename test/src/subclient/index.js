@@ -140,7 +140,7 @@ class SubClient {
   }
 
   async burnETH(account, recipient, amount, channelId) {
-    return await this.api.tx.ethApp.burn(channelId, recipient, amount).signAndSend(account);
+    return await this.api.tx.etherApp.burn(channelId, recipient, amount).signAndSend(account);
   }
 
   async burnERC20(account, assetId, recipient, amount, channelId) {

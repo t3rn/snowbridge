@@ -408,7 +408,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "artemis-eth-app"
+name = "artemis-ether-app"
 version = "0.1.1"
 dependencies = [
  "artemis-assets",
@@ -510,7 +510,7 @@ dependencies = [
  "artemis-dot-app",
  "artemis-erc20-app",
  "artemis-erc721-app",
- "artemis-eth-app",
+ "artemis-ether-app",
  "artemis-incentivized-channel",
  "artemis-nft",
  "artemis-runtime-common",
@@ -4727,7 +4727,7 @@ dependencies = [
  "artemis-dot-app",
  "artemis-erc20-app",
  "artemis-erc721-app",
- "artemis-eth-app",
+ "artemis-ether-app",
  "artemis-incentivized-channel",
  "artemis-nft",
  "artemis-runtime-common",
@@ -9729,7 +9729,7 @@ dependencies = [
  "artemis-dot-app",
  "artemis-erc20-app",
  "artemis-erc721-app",
- "artemis-eth-app",
+ "artemis-ether-app",
  "artemis-incentivized-channel",
  "artemis-nft",
  "artemis-runtime-common",

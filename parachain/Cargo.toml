@@ -113,7 +113,7 @@ members = [
     "pallets/assets",
     "pallets/nft",
     "pallets/verifier-lightclient",
-    "pallets/eth-app",
+    "pallets/ether-app",
     "pallets/erc20-app",
     "pallets/erc721-app",
     "pallets/dot-app",

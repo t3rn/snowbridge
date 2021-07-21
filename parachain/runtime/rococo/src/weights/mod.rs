@@ -5,7 +5,7 @@ pub mod basic_channel_inbound_weights;
 pub mod basic_channel_outbound_weights;
 pub mod dot_app_weights;
 pub mod erc20_app_weights;
-pub mod eth_app_weights;
+pub mod ether_app_weights;
 pub mod frame_system_weights;
 pub mod incentivized_channel_inbound_weights;
 pub mod incentivized_channel_outbound_weights;

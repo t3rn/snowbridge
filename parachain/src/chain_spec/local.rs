@@ -132,7 +132,7 @@ fn testnet_genesis(
 			address: hex!["3f839E70117C64744930De8567Ae7A5363487cA3"].into(),
 			phantom: Default::default(),
 		},
-		eth_app: local_runtime::EthAppConfig {
+		ether_app: local_runtime::EtherAppConfig {
 			address: hex!["3f0839385DB9cBEa8E73AdA6fa0CFe07E321F61d"].into()
 		},
 		erc_20_app: local_runtime::Erc20AppConfig {

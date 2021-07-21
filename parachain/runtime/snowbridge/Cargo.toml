@@ -68,7 +68,7 @@ verifier-lightclient = { path = "../../pallets/verifier-lightclient", package = 
 assets = { path = "../../pallets/assets", package = "artemis-assets", default-features = false }
 nft = { path = "../../pallets/nft", package = "artemis-nft", default-features = false }
 dot-app = { path = "../../pallets/dot-app", package = "artemis-dot-app", default-features = false }
-eth-app = { path = "../../pallets/eth-app", package = "artemis-eth-app", default-features = false }
+ether-app = { path = "../../pallets/ether-app", package = "artemis-ether-app", default-features = false }
 erc20-app = { path = "../../pallets/erc20-app", package = "artemis-erc20-app", default-features = false }
 erc721-app = { path = "../../pallets/erc721-app", package = "artemis-erc721-app", default-features = false }
 runtime-common = { path = "../common", package = "artemis-runtime-common", default-features = false }
@@ -130,7 +130,7 @@ std = [
     "nft/std",
     "dispatch/std",
     "dot-app/std",
-    "eth-app/std",
+    "ether-app/std",
     "erc20-app/std",
     "erc721-app/std",
     "artemis-xcm-support/std",
@@ -156,7 +156,7 @@ runtime-benchmarks = [
     "dot-app/runtime-benchmarks",
     "dispatch/runtime-benchmarks",
     "erc20-app/runtime-benchmarks",
-    "eth-app/runtime-benchmarks",
+    "ether-app/runtime-benchmarks",
     "incentivized-channel/runtime-benchmarks",
     "verifier-lightclient/runtime-benchmarks",
 ]

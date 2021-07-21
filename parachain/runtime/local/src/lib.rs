@@ -594,7 +594,7 @@ parameter_types! {
 	pub const EthAssetId: AssetId = AssetId::ETH;
 }
 
-impl eth_app::Config for Runtime {
+impl ether_app::Config for Runtime {
 	type Event = Event;
 	type Asset = assets::SingleAssetAdaptor<Runtime, EthAssetId>;
 	type OutboundRouter = OutboundRouter<Runtime>;
@@ -687,7 +687,7 @@ construct_runtime!(
 		// NOTE: Do not change the following pallet indices without updating
 		//   the peer apps (smart contracts) on the Ethereum side.
 		DotApp: dot_app::{Pallet, Call, Config<T>, Storage, Event<T>} = 64,
-		EthApp: eth_app::{Pallet, Call, Config, Storage, Event<T>} = 65,
+		EtherApp: ether_app::{Pallet, Call, Config, Storage, Event<T>} = 65,
 		Erc20App: erc20_app::{Pallet, Call, Config, Storage, Event<T>} = 66,
 		Erc721App: erc721_app::{Pallet, Call, Config, Storage, Event<T>} = 67,
 	}
@@ -866,7 +866,7 @@ impl_runtime_apis! {
 			add_benchmark!(params, batches, incentivized_channel::outbound, IncentivizedOutboundChannel);
 			add_benchmark!(params, batches, dot_app, DotApp);
 			add_benchmark!(params, batches, erc20_app, Erc20App);
-			add_benchmark!(params, batches, eth_app, EthApp);
+			add_benchmark!(params, batches, ether_app, EtherApp);
 
 			if batches.is_empty() { return Err("Benchmark not found for this pallet.".into()) }
 			Ok(batches)

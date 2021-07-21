@@ -16,7 +16,7 @@ use frame_system as system;
 use artemis_core::{ChannelId, AssetId, OutboundRouter};
 use artemis_assets::SingleAssetAdaptor;
 
-use crate as eth_app;
+use crate as ether_app;
 
 type UncheckedExtrinsic = frame_system::mocking::MockUncheckedExtrinsic<Test>;
 type Block = frame_system::mocking::MockBlock<Test>;
@@ -30,7 +30,7 @@ frame_support::construct_runtime!(
 		System: frame_system::{Pallet, Call, Storage, Event<T>},
 		Assets: artemis_assets::{Pallet, Call, Storage, Event<T>},
 		Dispatch: artemis_dispatch::{Pallet, Call, Storage, Origin, Event<T>},
-		EthApp: eth_app::{Pallet, Call, Config, Storage, Event<T>},
+		EtherApp: ether_app::{Pallet, Call, Config, Storage, Event<T>},
 	}
 );
 
@@ -96,7 +96,7 @@ parameter_types! {
 	pub const EthAssetId: AssetId = AssetId::ETH;
 }
 
-impl eth_app::Config for Test {
+impl ether_app::Config for Test {
 	type Event = Event;
 	type Asset = Asset;
 	type OutboundRouter = MockOutboundRouter<Self::AccountId>;
@@ -109,7 +109,7 @@ pub type Asset = SingleAssetAdaptor<Test, EthAssetId>;
 pub fn new_tester() -> sp_io::TestExternalities {
 	let mut storage = system::GenesisConfig::default().build_storage::<Test>().unwrap();
 
-	let config = eth_app::GenesisConfig {
+	let config = ether_app::GenesisConfig {
 		address: H160::repeat_byte(1),
 	};
 	config.assimilate_storage(&mut storage).unwrap();
