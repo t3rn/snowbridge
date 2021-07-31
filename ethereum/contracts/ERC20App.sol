@@ -112,10 +112,10 @@ contract ERC20App is AccessControl {
         uint256 _amount
     ) private pure returns (bytes memory) {
         return
-            abi.encodePacked(
+            bytes.concat(
                 MINT_CALL,
-                _token,
-                _sender,
+                bytes20(_token),
+                bytes20(_sender),
                 bytes1(0x00), // Encode recipient as MultiAddress::Id
                 _recipient,
                 _amount.encode256()

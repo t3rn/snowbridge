@@ -115,12 +115,12 @@ contract ERC721App is AccessControl {
                         string memory _tokenURI
                         ) private pure returns (bytes memory) {
         return
-            abi.encodePacked(
+            bytes.concat(
                              MINT_CALL,
-                             _sender,
+                             bytes20(_sender),
                              bytes1(0x00), // Encode recipient as MultiAddress::Id
                              _recipient,
-                             _tokenContract,
+                             bytes20(_tokenContract),
                              _tokenId.encode256(),
                              bytes1(0x00) // TODO placeholder for the following, which requires compact (scale) encoded length prefix: // bytes(_tokenURI)
                             );
