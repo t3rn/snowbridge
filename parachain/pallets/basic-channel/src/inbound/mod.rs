@@ -4,7 +4,7 @@ use frame_support::{
 	weights::Weight,
 };
 use frame_system::{self as system, ensure_signed};
-use sp_core::H160;
+use sp_core::{H160, H256};
 use sp_std::prelude::*;
 use sp_std::convert::TryFrom;
 use snowbridge_core::{
@@ -47,6 +47,7 @@ decl_storage! {
 	trait Store for Module<T: Config> as BasicInboundModule {
 		pub SourceChannel get(fn source_channel) config(): H160;
 		pub Nonce: u64;
+		pub BlockHash: H256;
 	}
 }
 
@@ -98,6 +99,11 @@ decl_module! {
 					Ok(())
 				}
 			})?;
+
+			// Record last processed block
+			if BlockHash::get() != message.proof.block_hash {
+				BlockHash::put(message.proof.block_hash);
+			}
 
 			let message_id = MessageId::new(ChannelId::Basic, envelope.nonce);
 			T::MessageDispatch::dispatch(envelope.source, message_id, &envelope.payload);

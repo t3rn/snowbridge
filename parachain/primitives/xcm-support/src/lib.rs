@@ -5,14 +5,36 @@
 
 #![cfg_attr(not(feature = "std"), no_std)]
 
-use sp_core::U256;
+use sp_core::{H160, U256};
 use sp_std::{result, marker::PhantomData, prelude::*};
-use codec::Decode;
+use codec::{Encode, Decode};
 
 use xcm::v0::{Error as XcmError, Junction, MultiAsset, MultiLocation, Result as XcmResult};
 use xcm_executor::traits::{Convert, TransactAsset};
 
 use snowbridge_core::assets::{AssetId, MultiAsset as SnowbridgeMultiAsset};
+
+// MultiLocation for wrapped ether
+fn make_ether_location() -> MultiLocation {
+	let asset_id = AssetId::ETH;
+	MultiLocation::X3(
+		Junction::Parent,
+		Junction::Parachain(1000),
+		Junction::GeneralKey(asset_id.encode())
+	)
+}
+
+// MultiLocation for wrapped tokens (ERC20, ERC777, etc)
+fn make_erc20_location()-> MultiLocation {
+	let token_contract_address = H160::from(hex!["dAC17F958D2ee523a2206206994597C13D831ec7"]);
+	let asset_id = AssetId::Token(token_contract_address);
+	MultiLocation::X3(
+		Junction::Parent,
+		Junction::Parachain(1000),
+		Junction::GeneralKey(asset_id.encode())
+	)
+}
+
 
 pub struct AssetsTransactor<Assets, AccountIdConverter, AccountId>(
 	PhantomData<(Assets, AccountIdConverter, AccountId)>,
