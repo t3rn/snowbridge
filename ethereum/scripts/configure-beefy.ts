@@ -14,13 +14,18 @@ async function configureBeefy() {
     validatorRegistryDeployment.abi);
 
   const validatorRegistry = await validatorRegistryContract.connect(signer)
+  const registryOwner = await validatorRegistry.owner();
+  if (registryOwner === beefyDeployment.address){
+    console.log("BeefyLightClient is already owner. Skipping...")
+    return
+  }
 
   const relayChainProvider = new WsProvider(relaychainEndpoint);
   const relaychainAPI = await ApiPromise.create({
     provider: relayChainProvider,
   })
 
-  const authorities = await relaychainAPI.query.mmrLeaf.beefyNextAuthorities()
+  const authorities = await relaychainAPI.query.beefyMmr.beefyNextAuthorities()
   const root = authorities.root.toString();
   const numValidators = authorities.len.toString();
   const id = authorities.id.toString();
