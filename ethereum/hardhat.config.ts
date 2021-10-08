@@ -30,8 +30,10 @@ const config: HardhatUserConfig = {
     },
     localhost: {
       url: "http://127.0.0.1:8545",
-      accounts: "remote",
-      chainId: 1337,
+      accounts: [
+          "0x935b65c833ced92c43ef9de6bff30703d941bd92a2637cb00cfad389f5862109"
+      ],
+      chainId: 15,
     },
     ropsten: {
       chainId: 3,
