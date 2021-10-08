@@ -1,6 +1,6 @@
 {
   "source": {
-    "data-dir": "/tmp",
+    "data-dir": "/Users/vedhavyas/Ethereum/Local",
     "ethereum": {
       "endpoint": "ws://localhost:8546"
     },
@@ -12,7 +12,7 @@
   },
   "sink": {
     "parachain": {
-      "endpoint": "ws://localhost:11144"
+      "endpoint": "ws://localhost:9944"
     }
   }
 }

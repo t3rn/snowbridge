@@ -14,7 +14,7 @@
     "start-block": 0,
     "descendants-until-final": 3,
     "contracts": {
-      "BeefyLightClient": null
+      "BeefyLightClient": "0x65B43193658CF5aD1557aa0E3D9F9413e6383F35"
     }
   }
 }

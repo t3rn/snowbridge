@@ -93,23 +93,25 @@ func (li *EthereumListener) Start(
 		return nil, err
 	}
 
-	var address common.Address
+	if li.config.Contracts.BasicOutboundChannel != "" && li.config.Contracts.IncentivizedOutboundChannel != "" {
+		var address common.Address
 
-	address = common.HexToAddress(li.config.Contracts.BasicOutboundChannel)
-	basicOutboundChannel, err := basic.NewBasicOutboundChannel(address, li.conn.GetClient())
-	if err != nil {
-		return nil, err
-	}
-	li.basicOutboundChannel = basicOutboundChannel
-	li.mapping[address] = "BasicInboundChannel.submit"
+		address = common.HexToAddress(li.config.Contracts.BasicOutboundChannel)
+		basicOutboundChannel, err := basic.NewBasicOutboundChannel(address, li.conn.GetClient())
+		if err != nil {
+			return nil, err
+		}
+		li.basicOutboundChannel = basicOutboundChannel
+		li.mapping[address] = "BasicInboundChannel.submit"
 
-	address = common.HexToAddress(li.config.Contracts.IncentivizedOutboundChannel)
-	incentivizedOutboundChannel, err := incentivized.NewIncentivizedOutboundChannel(address, li.conn.GetClient())
-	if err != nil {
-		return nil, err
+		address = common.HexToAddress(li.config.Contracts.IncentivizedOutboundChannel)
+		incentivizedOutboundChannel, err := incentivized.NewIncentivizedOutboundChannel(address, li.conn.GetClient())
+		if err != nil {
+			return nil, err
+		}
+		li.incentivizedOutboundChannel = incentivizedOutboundChannel
+		li.mapping[address] = "IncentivizedInboundChannel.submit"
 	}
-	li.incentivizedOutboundChannel = incentivizedOutboundChannel
-	li.mapping[address] = "IncentivizedInboundChannel.submit"
 
 	li.headerSyncer = syncer.NewSyncer(
 		li.descendantsUntilFinal,
@@ -170,19 +172,23 @@ func (li *EthereumListener) processEventsAndHeaders(
 
 			filterOptions := bind.FilterOpts{Start: finalizedBlockNumber, End: &finalizedBlockNumber, Context: ctx}
 
-			basicEvents, err := li.queryBasicEvents(li.basicOutboundChannel, &filterOptions)
-			if err != nil {
-				log.WithError(err).Error("Failure fetching event logs")
-				return err
+			if li.basicOutboundChannel != nil {
+				basicEvents, err := li.queryBasicEvents(li.basicOutboundChannel, &filterOptions)
+				if err != nil {
+					log.WithError(err).Error("Failure fetching event logs")
+					return err
+				}
+				events = append(events, basicEvents...)
 			}
-			events = append(events, basicEvents...)
 
-			incentivizedEvents, err := li.queryIncentivizedEvents(li.incentivizedOutboundChannel, &filterOptions)
-			if err != nil {
-				log.WithError(err).Error("Failure fetching event logs")
-				return err
+			if li.incentivizedOutboundChannel != nil {
+				incentivizedEvents, err := li.queryIncentivizedEvents(li.incentivizedOutboundChannel, &filterOptions)
+				if err != nil {
+					log.WithError(err).Error("Failure fetching event logs")
+					return err
+				}
+				events = append(events, incentivizedEvents...)
 			}
-			events = append(events, incentivizedEvents...)
 
 			messages, err := li.makeOutgoingMessages(ctx, headerCache, events)
 			if err != nil {
