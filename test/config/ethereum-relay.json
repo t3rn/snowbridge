@@ -1,6 +1,6 @@
 {
   "source": {
-    "data-dir": "/Users/vedhavyas/Ethereum/Local",
+    "data-dir": "/tmp/geth.data",
     "ethereum": {
       "endpoint": "ws://localhost:8546"
     },
